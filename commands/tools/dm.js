@@ -15,7 +15,7 @@ module.exports = {
 				{ name: 'Huragan', value: 'Huragan'},
                 { name: 'Fen', value: 'Fen'},
                 { name: 'Monsun', value: 'Monsun'},
-                { name: 'Pasat', value: 'Pasat'},
+                { name: 'Samum', value: 'Samum'},
                 { name: 'Mistral', value: 'Mistral'},
                 { name: 'Orkan', value: 'Orkan'},
                 { name: 'Lewanter', value: 'Lewanter'},
@@ -32,9 +32,11 @@ module.exports = {
             const memberUser = await client.users.fetch(members[member])
             const senderId = await interaction.user.id
             const sender = await Object.keys(members).find(key => members[key]==senderId)
-            const channel = client.channels.cache.get('1022936085925478430');
+            let channel = client.channels.cache.get('1022936085925478430');
             const messageContent = `**${sender}**->**${member}**: ${message}`
             memberUser.send(messageContent);
+            channel.send(messageContent);
+            channel = client.channels.cache.get('1022934452734787714');
             channel.send(messageContent);
             interaction.reply({content: messageContent, ephemeral: true})
         }

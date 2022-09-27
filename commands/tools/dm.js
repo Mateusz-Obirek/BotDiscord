@@ -12,7 +12,14 @@ module.exports = {
             .addChoices(
 				{ name: 'Siewca', value: 'Siewca'},
 				{ name: 'Cyklon', value: 'Cyklon'},
-				{ name: 'Huragan', value: 'Huragan'}
+				{ name: 'Huragan', value: 'Huragan'},
+                { name: 'Fen', value: 'Fen'},
+                { name: 'Monsun', value: 'Monsun'},
+                { name: 'Pasat', value: 'Pasat'},
+                { name: 'Mistral', value: 'Mistral'},
+                { name: 'Orkan', value: 'Orkan'},
+                { name: 'Lewanter', value: 'Lewanter'},
+                { name: 'Santana', value: 'Santana'}
 			))
         .addStringOption(option =>
             option.setName('message').setDescription('Message content')
@@ -25,8 +32,11 @@ module.exports = {
             const memberUser = await client.users.fetch(members[member])
             const senderId = await interaction.user.id
             const sender = await Object.keys(members).find(key => members[key]==senderId)
-            memberUser.send(`${sender}->${member}:${message}`)
-            interaction.reply({ content: 'Message has been sent', ephemeral: true })
+            const channel = client.channels.cache.get('1022936085925478430');
+            const messageContent = `**${sender}**->**${member}**: ${message}`
+            memberUser.send(messageContent);
+            channel.send(messageContent);
+            interaction.reply({content: messageContent, ephemeral: true})
         }
         else{
             interaction.reply({ content: 'You are not worthy!', ephemeral: true })

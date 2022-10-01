@@ -44,7 +44,6 @@ module.exports = {
             const messageContent = `**${sender}**->**${member}**: ${message?message:''}`
             if(attachment){
                 memberUser.send({content: messageContent, files: [file]});
-                interaction.reply({ content: 'Message has been send', ephemeral: true })
                 interaction.user.send({content: messageContent, files: [file]})
                 channel.send({content: messageContent, files: [file]});
                 channel = client.channels.cache.get('1022934452734787714');
@@ -52,14 +51,16 @@ module.exports = {
             }
             else if(message){
                 memberUser.send({content: messageContent});
-                interaction.reply({ content: 'Message has been send', ephemeral: true })
                 interaction.user.send({content: messageContent})
                 channel.send({content: messageContent});
                 channel = client.channels.cache.get('1022934452734787714');
                 channel.send({content: messageContent});
             }
-            else
+            else{
                 interaction.reply({ content: 'Wrong message data!', ephemeral: true })
+                return
+            }
+            interaction.reply({ content: 'Message has been send', ephemeral: true })
         }
         else{
             interaction.reply({ content: 'You are not worthy!', ephemeral: true })

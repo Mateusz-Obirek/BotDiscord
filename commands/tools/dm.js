@@ -41,7 +41,7 @@ module.exports = {
             const senderId = await interaction.user.id
             const sender = await Object.keys(members).find(key => members[key]==senderId)
             let channel = client.channels.cache.get('1022936085925478430');
-            const messageContent = message?`**${sender}**->**${member}**: ${message}`:''
+            const messageContent = `**${sender}**->**${member}**: ${message?message:''}`
             if(attachment){
                 memberUser.send({content: messageContent, files: [file]});
                 interaction.user.send({content: messageContent, files: [file]})

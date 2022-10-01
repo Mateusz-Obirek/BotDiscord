@@ -22,7 +22,7 @@ module.exports = {
 
                 const senderId = await interaction.user.id
                 const sender = await Object.keys(members).find(key => members[key]==senderId)
-                const messageContent = message?`**${sender}**: ${message}`:''
+                const messageContent = `**${sender}**: ${message?message:''}`
                 const channel = client.channels.cache.get('1022936085925478430');
 
                 if(attachment){

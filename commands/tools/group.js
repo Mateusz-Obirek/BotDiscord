@@ -7,7 +7,10 @@ module.exports = {
         .setDescription('sends dm to group!')
         .addStringOption(option =>
             option.setName('message').setDescription('Message content')
-            .setRequired(true))
+            .setRequired(false))
+        .addAttachmentOption(option =>
+            option.setName('attachment').setDescription('file or image')
+            .setRequired(false))
     ,
     async execute(interaction, client){
         try{

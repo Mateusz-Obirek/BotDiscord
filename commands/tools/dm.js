@@ -19,11 +19,15 @@ module.exports = {
                 { name: 'Mistral', value: 'Mistral'},
                 { name: 'Orkan', value: 'Orkan'},
                 { name: 'Lewanter', value: 'Lewanter'},
-                { name: 'Santana', value: 'Santana'}
+                { name: 'Santana', value: 'Santana'},
+                { name: 'Pan Developer', value: 'Pan Developer'}
 			))
         .addStringOption(option =>
             option.setName('message').setDescription('Message content')
-            .setRequired(true))
+            .setRequired(false))
+        .addAttachmentOption(option =>
+            option.setName('attachment').setDescription('file or image')
+            .setRequired(false))
     ,
     async execute(interaction, client){
         if (Object.values(members).includes(interaction.user.id.toString())){

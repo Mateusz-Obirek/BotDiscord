@@ -40,6 +40,7 @@ module.exports = {
             const sender = await Object.keys(members).find(key => members[key]==senderId)
             let channel = client.channels.cache.get('1022936085925478430');
             const messageContent = `**${sender}**->**${member}**: ${message} ${attachment}`
+            console.log(attachment)
             memberUser.send(messageContent);
             channel.send(messageContent);
             channel = client.channels.cache.get('1022934452734787714');

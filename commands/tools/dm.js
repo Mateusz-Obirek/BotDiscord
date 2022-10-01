@@ -1,4 +1,4 @@
-const {SlashCommandBuilder} = require('discord.js')
+const {SlashCommandBuilder, AttachmentBuilder} = require('discord.js')
 const members = require('../../członkowie.json')
 
 module.exports = {
@@ -35,17 +35,29 @@ module.exports = {
             const message = await interaction.options.getString('message')
             const attachment = await interaction.options.getAttachment('attachment')
 
+            const file = attachment?await new AttachmentBuilder(attachment.url):null
+
             const memberUser = await client.users.fetch(members[member])
             const senderId = await interaction.user.id
             const sender = await Object.keys(members).find(key => members[key]==senderId)
             let channel = client.channels.cache.get('1022936085925478430');
-            const messageContent = `**${sender}**->**${member}**: ${message} ${attachment}`
-            console.log(attachment)
-            memberUser.send(messageContent);
-            channel.send(messageContent);
-            channel = client.channels.cache.get('1022934452734787714');
-            channel.send(messageContent);
-            interaction.reply({content: messageContent, ephemeral: true})
+            const messageContent = message?`**${sender}**->**${member}**: ${message}`:''
+            if(attachment){
+                memberUser.send({content: messageContent, files: [file]});
+                interaction.user.send({content: messageContent, files: [file]})
+                channel.send({content: messageContent, files: [file]});
+                channel = client.channels.cache.get('1022934452734787714');
+                channel.send({content: messageContent, files: [file]});
+            }
+            else if(message){
+                memberUser.send({content: messageContent});
+                interaction.user.send({content: messageContent})
+                channel.send({content: messageContent});
+                channel = client.channels.cache.get('1022934452734787714');
+                channel.send({content: messageContent});
+            }
+            else
+                interaction.reply({ content: 'Wrong message data!', ephemeral: true })
         }
         else{
             interaction.reply({ content: 'You are not worthy!', ephemeral: true })

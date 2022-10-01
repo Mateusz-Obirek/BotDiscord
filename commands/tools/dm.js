@@ -33,11 +33,13 @@ module.exports = {
         if (Object.values(members).includes(interaction.user.id.toString())){
             const member = await interaction.options.getString('target')
             const message = await interaction.options.getString('message')
+            const attachment = await interaction.options.getAttachment('attachment')
+
             const memberUser = await client.users.fetch(members[member])
             const senderId = await interaction.user.id
             const sender = await Object.keys(members).find(key => members[key]==senderId)
             let channel = client.channels.cache.get('1022936085925478430');
-            const messageContent = `**${sender}**->**${member}**: ${message}`
+            const messageContent = `**${sender}**->**${member}**: ${message} ${attachment}`
             memberUser.send(messageContent);
             channel.send(messageContent);
             channel = client.channels.cache.get('1022934452734787714');
